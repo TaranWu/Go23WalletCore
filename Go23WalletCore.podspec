@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Go23WalletCore'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of Go23WalletCore.'
+  s.version          = '1.0.0'
+  s.summary          = 'Go23Wallet Core Library'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,25 +18,29 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  Lightweight library representing the Go23Wallet core with its functionality
                        DESC
 
   s.homepage         = 'https://github.com/Taran/Go23WalletCore'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Taran' => 'NA' }
   s.source           = { :git => 'https://github.com/Taran/Go23WalletCore.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '13.0'
+  s.swift_version    = '5.0'
+  s.platform         = :ios, "13.0"
+  s.source_files = 'Go23WalletCore/Classes/**/*.{h,m,swift}'
+  s.pod_target_xcconfig = { 'SWIFT_OPTIMIZATION_LEVEL' => '-Owholemodule' }
+  
+  s.frameworks       = 'Foundation'
 
-  s.source_files = 'Go23WalletCore/Classes/**/*'
+  s.dependency 'Alamofire'
+  s.dependency 'PromiseKit'
   
   # s.resource_bundles = {
   #   'Go23WalletCore' => ['Go23WalletCore/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
