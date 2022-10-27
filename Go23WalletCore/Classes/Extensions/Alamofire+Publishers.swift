@@ -14,11 +14,11 @@ public enum PromiseError: Error {
 }
 
 public struct DataResponse {
-    public init<Success, Failure: Error>(_ rawrsp: Alamofire.DataResponse<Success, Failure>) {
+    public init<T>(_ rawrsp: Alamofire.DataResponse<T>) {
         request = rawrsp.request
         response = rawrsp.response
         data = rawrsp.data
-//        timeline = rawrsp.timeline
+        timeline = rawrsp.timeline
     }
 
     /// The URL request sent to the server.
@@ -31,7 +31,7 @@ public struct DataResponse {
     public let data: Data?
 
     /// The timeline of the complete lifecycle of the request.
-//    public let timeline: Timeline
+    public let timeline: Timeline
 }
 
 extension Alamofire.DataRequest {
