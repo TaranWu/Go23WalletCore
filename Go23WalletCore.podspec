@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
   Lightweight library representing the Go23Wallet core with its functionality
                        DESC
 
-  s.homepage         = 'https://github.com/Taran/Go23WalletCore'
+  s.homepage         = 'https://github.com/TaranWu/Go23WalletCore'
 
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Taran' => 'NA' }
-  s.source           = { :git => 'https://github.com/Taran/Go23WalletCore.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/TaranWu/Go23WalletCore.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '13.0'
   s.swift_version    = '5.0'
