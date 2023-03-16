@@ -1,8 +1,8 @@
 //
 //  Publisher+Utils.swift
-//  DerbyWallet
+//  Go23Wallet
 //
-//  Created by Tatan.
+//  Created by Taran on 04.04.2022.
 //
 
 import Foundation

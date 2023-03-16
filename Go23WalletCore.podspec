@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Go23WalletCore'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'Go23Wallet Core Library'
 
 # This description is used to generate tags and improve search results.
@@ -35,8 +35,7 @@ Pod::Spec.new do |s|
   
   s.frameworks       = 'Foundation'
 
-  s.dependency 'Alamofire'
-  s.dependency 'Alamofire-Synchronous'
+  s.dependency 'Alamofire', '5.6.4'
   s.dependency 'PromiseKit'
   
   # s.resource_bundles = {

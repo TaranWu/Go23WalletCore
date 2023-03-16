@@ -1,8 +1,8 @@
 //
 //  PromiseKit+Extensions.swift
-//  DerbyWalletOpenSea
+//  Go23WalletOpenSea
 //
-//  Created by Tatan.
+//  Created by Taran on Apr/30/22.
 //
 
 import Foundation

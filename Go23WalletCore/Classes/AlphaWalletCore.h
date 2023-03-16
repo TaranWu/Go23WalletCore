@@ -2,7 +2,7 @@
 //  Go23WalletCore.h
 //  Go23WalletCore
 //
-//  Created by Taran.
+//  Created by Taran on 11.02.2022.
 //
 
 #import <Foundation/Foundation.h>

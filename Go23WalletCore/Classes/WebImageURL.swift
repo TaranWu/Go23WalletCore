@@ -1,8 +1,8 @@
 //
-//  DerbyWalletURL.swift
-//  DerbyWalletCore
+//  Go23WalletURL.swift
+//  Go23WalletCore
 //
-//  Created by Tatan.
+//  Created by Taran on 11.02.2022.
 //
 
 import Foundation
@@ -29,7 +29,7 @@ public enum GoogleContentSize: Equatable {
     }
 
     init?(string: String) {
-        guard let rawValue = WebImageURL.Functional.googleContentSizeRawValue(for: string) else { return nil }
+        guard let rawValue = WebImageURL.functional.googleContentSizeRawValue(for: string) else { return nil }
         let string = rawValue.rawValue.lowercased()
 
         switch string {
@@ -74,19 +74,21 @@ public enum WebImageURL: Codable, Hashable, Equatable, CustomStringConvertible {
         case .origin, .ipfs:
             return nil
         case .googleContentRewritten(let uRL):
-            return WebImageURL.Functional.googleContentSize(for: uRL)
+            return WebImageURL.functional.googleContentSize(for: uRL)
         }
     }
 
     public init?(string: String, withUrlRewriting: Bool = true, rewriteGoogleContentSizeUrl size: GoogleContentSize = .s750) {
-        guard let url = URL(string: string) else { return nil }
+        guard let url = URL(string: string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20")) else {
+            return nil
+        }
         self.init(url: url, withUrlRewriting: withUrlRewriting, rewriteGoogleContentSizeUrl: size)
     }
 
     public init(url: URL, withUrlRewriting: Bool = true, rewriteGoogleContentSizeUrl size: GoogleContentSize = .s750) {
-        if let url = WebImageURL.Functional.rewriteGoogleContentSizeUrl(url: url, size: size), withUrlRewriting {
+        if let url = WebImageURL.functional.rewriteGoogleContentSizeUrl(url: url, size: size), withUrlRewriting {
             self = .googleContentRewritten(url)
-        } else if let url = WebImageURL.Functional.rewriteIfIpfsOrNil(url: url), withUrlRewriting {
+        } else if let url = url.rewriteIfIpfsOrNil, withUrlRewriting {
             self = .ipfs(url)
         } else {
             self = .origin(url)
@@ -95,22 +97,17 @@ public enum WebImageURL: Codable, Hashable, Equatable, CustomStringConvertible {
 }
 
 extension String {
+    
     func rangeFromNSRange(nsRange: NSRange) -> Range<String.Index>? {
         return Range(nsRange, in: self)
     }
 }
 
 extension WebImageURL {
-    enum Functional { }
+    enum functional { }
 }
 
-extension URL {
-    public var rewrittenIfIpfs: URL {
-        return WebImageURL.Functional.rewriteIfIpfsOrNil(url: self) ?? self
-    }
-}
-
-fileprivate extension WebImageURL.Functional {
+fileprivate extension WebImageURL.functional {
 
     private static let googleImageSizeInUrlRegex: NSRegularExpression = {
         return try! NSRegularExpression(pattern: "(=s|=S).*[0-9]", options: .init())
@@ -145,22 +142,5 @@ fileprivate extension WebImageURL.Functional {
         components.path = path.replacingCharacters(in: range, with: size.rawValue)
 
         return components.url
-    }
-
-    static func rewriteIfIpfsOrNil(url: URL) -> URL? {
-        if url.scheme == "ipfs" {
-            //We can't use `URLComponents` or `pathComponents` here
-            let path = url.absoluteString.replacingOccurrences(of: "ipfs://", with: "")
-            let urlString: String = {
-                if path.hasPrefix("ipfs/") {
-                    return "https://ipfs.io/\(path)"
-                } else {
-                    return "https://ipfs.io/ipfs/\(path)"
-                }
-            }()
-            return URL(string: urlString)
-        } else {
-            return nil
-        }
     }
 }

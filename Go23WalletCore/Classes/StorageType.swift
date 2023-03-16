@@ -1,8 +1,8 @@
 //
 //  StorageType.swift
-//  DerbyWallet
+//  Go23Wallet
 //
-//  Created by Tatan.
+//  Created by Taran on 17.09.2022.
 //
 
 import Foundation
@@ -43,15 +43,15 @@ public extension StorageType {
 }
 
 public struct FileStorage: StorageType {
-    public var fileExtension: String = "data"
-    private let serialQueue: DispatchQueue = DispatchQueue(label: "org.DerbyWallet.swift.file")
+    public var fileExtension: String
+    private let serialQueue: DispatchQueue = DispatchQueue(label: "org.Go23Wallet.swift.file")
     public var directoryUrl: URL = {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }()
 
-    public init() {
-
+    public init(fileExtension: String = "data") {
+        self.fileExtension = fileExtension
     }
 
     public func dataExists(forKey key: String) -> Bool {
@@ -115,7 +115,7 @@ public struct FileStorage: StorageType {
 
 public class InMemoryStorage: StorageType {
     public var fileExtension: String = "data"
-    private let serialQueue: DispatchQueue = DispatchQueue(label: "org.DerbyWallet.swift.file")
+    private let serialQueue: DispatchQueue = DispatchQueue(label: "org.Go23Wallet.swift.file")
     private var data: [URL: Data] = [:]
     public var directoryUrl: URL = {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
